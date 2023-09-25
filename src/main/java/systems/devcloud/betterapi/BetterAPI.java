@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Copyright (c) 2023 DevCloud Software. All Rights reserved.
  ******************************************************************************/
+
 package systems.devcloud.betterapi;
 
 import lombok.extern.java.Log;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 import systems.devcloud.betterapi.utils.Localizer;

@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import lombok.extern.java.Log;
 
-@Log (topic = "BetterAPI")
+@Log(topic = "BetterAPI")
 public class Localizer {
 
     private final ResourceBundle language;
