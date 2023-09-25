@@ -1,0 +1,8 @@
+# GRADLE SH!T #
+/build/
+/.gradle/
+/gradle/
+/.idea/
+
+# IntelliJ IDEA #
+/.fastRequest/

@@ -1,0 +1,4 @@
+name: BetterAPI
+version: '${version}'
+main: systems.devcloud.betterapi.BetterAPI
+api-version: '1.20'
