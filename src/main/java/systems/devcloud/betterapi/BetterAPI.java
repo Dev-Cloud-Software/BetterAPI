@@ -7,6 +7,7 @@ package systems.devcloud.betterapi;
 import lombok.extern.java.Log;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
+import systems.devcloud.betterapi.controller.RestController;
 import systems.devcloud.betterapi.utils.Localizer;
 
 /**
@@ -14,15 +15,17 @@ import systems.devcloud.betterapi.utils.Localizer;
  */
 @Log(topic = "BetterAPI")
 public final class BetterAPI extends JavaPlugin {
-
+    private RestController restController;
     public static Localizer localizer;
     private int apiPort;
 
     @Override
     public void onLoad() {
+        saveDefaultConfig();
         Configuration pluginConfig = getConfig();
-        localizer = new Localizer(pluginConfig.getString("general.locale"));
-        this.apiPort = pluginConfig.getInt("api.port");
+        localizer = new Localizer(pluginConfig.getString("general.language"));
+        this.apiPort = pluginConfig.getInt("general.api.port");
+        this.restController = new RestController();
         log.info(String.format(localizer.get("plugin.loaded"), localizer.get("prefix")));
     }
 
@@ -31,7 +34,7 @@ public final class BetterAPI extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-        saveDefaultConfig();
+        restController.startServer(apiPort);
         log.info(String.format(localizer.get("plugin.enabled"), localizer.get("prefix")));
     }
 
