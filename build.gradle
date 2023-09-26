@@ -26,7 +26,7 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
-    // EnderNation
+    // DevCloud
     maven {
         name = "devcloud-repo"
         url = "https://repos.dev-cloud.systems/repository/devcloud-public/"
@@ -37,6 +37,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:1.18.20"
     compileOnly "io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT"
     compileOnly "org.projectlombok:lombok:1.18.20"
+    shadow "io.vertx:vertx-web:4.4.5"
 }
 
 shadowJar {

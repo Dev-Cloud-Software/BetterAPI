@@ -1,0 +1,4 @@
+general:
+  language: de_DE
+  api:
+    port: 8080
