@@ -4,6 +4,8 @@
 
 package systems.devcloud.betterapi.controller;
 
+import static systems.devcloud.betterapi.BetterAPI.localizer;
+
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
@@ -11,8 +13,6 @@ import io.vertx.ext.web.Router;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.java.Log;
-
-import static systems.devcloud.betterapi.BetterAPI.localizer;
 
 @Log(topic = "BetterAPI")
 public class RestController {
@@ -36,7 +36,9 @@ public class RestController {
         registerControllers();
         for (IController controller : controllers) {
             controller.createRoutes(router);
-            log.info(String.format(localizer.get("plugin.load.controller"),controller.getClass().getName()));
+            log.info(String.format(
+                    localizer.get("plugin.load.controller"),
+                    controller.getClass().getName()));
         }
     }
 

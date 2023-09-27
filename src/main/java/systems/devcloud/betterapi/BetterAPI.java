@@ -35,6 +35,8 @@ public final class BetterAPI extends JavaPlugin {
     @Override
     public void onEnable() {
         restController.startServer(apiPort);
+        log.info(
+                "\n\n#########################\n#       BetterAPI       #\n#   Dev-Cloud Software  #\n#        v 1.0.0        #\n#########################\n");
         log.info(String.format(localizer.get("plugin.enabled"), localizer.get("prefix")));
     }
 

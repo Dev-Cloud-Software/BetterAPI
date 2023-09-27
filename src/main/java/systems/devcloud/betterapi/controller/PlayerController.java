@@ -11,6 +11,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import systems.devcloud.betterapi.utils.HttpUtils;
 import systems.devcloud.betterapi.utils.ResponseTypes;
 
@@ -18,6 +19,7 @@ public class PlayerController implements IController {
     @Override
     public void createRoutes(Router router) {
         router.get("/player/list").handler(this::listPlayers);
+        router.get("/player/:uuid").handler(this::getPlayer);
     }
 
     private void listPlayers(RoutingContext routingContext) {
@@ -27,8 +29,21 @@ public class PlayerController implements IController {
             JsonObject playerObject = new JsonObject();
             playerObject.put("name", player.getName());
             playerObject.put("uuid", player.getUniqueId().toString());
+            playerObject.put("isOnline", player.isOnline());
             players.add(playerObject);
         }
         response.end(players.encodePrettily());
+    }
+
+    private void getPlayer(RoutingContext routingContext) {
+        HttpServerResponse response = HttpUtils.addResponseHeaders(routingContext.response(), ResponseTypes.JSON);
+        String uuid = routingContext.request().getParam("uuid");
+        Player player = Bukkit.getPlayer(uuid);
+        if (player == null) {
+            response.setStatusCode(404).end();
+            return;
+        }
+        JsonObject playerObject = new JsonObject();
+        response.end(playerObject.encodePrettily());
     }
 }
