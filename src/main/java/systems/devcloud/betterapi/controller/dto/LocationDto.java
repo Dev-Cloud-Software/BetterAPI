@@ -4,6 +4,7 @@
 
 package systems.devcloud.betterapi.controller.dto;
 
+import com.google.gson.JsonObject;
 import lombok.Data;
 import org.bukkit.Location;
 
@@ -23,5 +24,16 @@ public class LocationDto {
         this.worldName = location.getWorld().getName();
         this.yaw = location.getYaw();
         this.pitch = location.getPitch();
+    }
+
+    public JsonObject toJson() {
+        JsonObject locationObject = new JsonObject();
+        locationObject.addProperty("coordinateX", this.coordinateX);
+        locationObject.addProperty("coordinateY", this.coordinateY);
+        locationObject.addProperty("coordinateZ", this.coordinateZ);
+        locationObject.addProperty("worldName", this.worldName);
+        locationObject.addProperty("yaw", this.yaw);
+        locationObject.addProperty("pitch", this.pitch);
+        return locationObject;
     }
 }

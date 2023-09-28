@@ -12,6 +12,7 @@ import io.vertx.ext.web.RoutingContext;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import systems.devcloud.betterapi.controller.dto.PlayerDto;
 import systems.devcloud.betterapi.utils.HttpUtils;
 import systems.devcloud.betterapi.utils.ResponseTypes;
 
@@ -43,7 +44,7 @@ public class PlayerController implements IController {
             response.setStatusCode(404).end();
             return;
         }
-        JsonObject playerObject = new JsonObject();
-        response.end(playerObject.encodePrettily());
+        PlayerDto playerDto = new PlayerDto(player);
+        response.end(playerDto.toJson().toString());
     }
 }
