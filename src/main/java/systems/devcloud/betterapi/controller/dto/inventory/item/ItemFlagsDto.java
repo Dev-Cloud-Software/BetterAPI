@@ -2,7 +2,7 @@
  * Copyright (c) 2023 DevCloud Software. All Rights reserved.
  ******************************************************************************/
 
-package systems.devcloud.betterapi.controller.dto.item;
+package systems.devcloud.betterapi.controller.dto.inventory.item;
 
 import com.google.gson.JsonObject;
 import java.util.Set;

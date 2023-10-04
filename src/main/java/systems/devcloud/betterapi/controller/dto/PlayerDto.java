@@ -5,7 +5,6 @@
 package systems.devcloud.betterapi.controller.dto;
 
 import com.google.gson.JsonObject;
-import java.net.InetSocketAddress;
 import lombok.Data;
 import org.bukkit.entity.Player;
 import systems.devcloud.betterapi.controller.dto.client.ClientDto;
@@ -17,7 +16,7 @@ public class PlayerDto {
     private String uuid;
     private boolean isOnline;
     private int ping;
-    private InetSocketAddress address;
+    private String address;
     private float saturation;
     private int foodLevel;
     private float experience;
@@ -29,22 +28,20 @@ public class PlayerDto {
     private long firstPlayed;
     private long lastLogin;
     private long lastSeen;
-    private boolean hasBedSpawnLocation;
-
-    // Sub DTOs
     private ClientDto client;
     private LocationDto location;
+    private LocationDto bedSpawnLocation;
+    private LocationDto compassTargetLocation;
     private InventoryDto inventory;
     private InventoryDto enderChest;
-    private LocationDto compassTargetLocation;
-    private LocationDto bedSpawnLocation;
 
     public PlayerDto(Player player) {
         this.name = player.getName();
         this.uuid = player.getUniqueId().toString();
         this.isOnline = player.isOnline();
         this.ping = player.getPing();
-        this.address = player.getAddress();
+        if (player.getAddress() != null)
+            this.address = player.getAddress().getAddress().toString();
         this.saturation = player.getSaturation();
         this.foodLevel = player.getFoodLevel();
         this.experience = player.getExp();
@@ -56,13 +53,12 @@ public class PlayerDto {
         this.firstPlayed = player.getFirstPlayed();
         this.lastLogin = player.getLastLogin();
         this.lastSeen = player.getLastSeen();
-        this.hasBedSpawnLocation = player.getBedSpawnLocation() != null;
         this.client = new ClientDto(player);
         this.location = new LocationDto(player.getLocation());
+        if (player.getBedSpawnLocation() != null) this.bedSpawnLocation = new LocationDto(player.getBedSpawnLocation());
+        this.compassTargetLocation = new LocationDto(player.getCompassTarget());
         this.inventory = new InventoryDto(player.getInventory());
         this.enderChest = new InventoryDto(player.getEnderChest());
-        this.compassTargetLocation = new LocationDto(player.getCompassTarget());
-        if (this.hasBedSpawnLocation) this.bedSpawnLocation = new LocationDto(player.getBedSpawnLocation());
     }
 
     public JsonObject toJson() {
@@ -71,7 +67,7 @@ public class PlayerDto {
         playerObject.addProperty("uuid", this.uuid);
         playerObject.addProperty("isOnline", this.isOnline);
         playerObject.addProperty("ping", this.ping);
-        playerObject.addProperty("address", this.address.toString());
+        playerObject.addProperty("address", this.address);
         playerObject.addProperty("saturation", this.saturation);
         playerObject.addProperty("foodLevel", this.foodLevel);
         playerObject.addProperty("experience", this.experience);
@@ -83,13 +79,12 @@ public class PlayerDto {
         playerObject.addProperty("firstPlayed", this.firstPlayed);
         playerObject.addProperty("lastLogin", this.lastLogin);
         playerObject.addProperty("lastSeen", this.lastSeen);
-        playerObject.addProperty("hasBedSpawnLocation", this.hasBedSpawnLocation);
         playerObject.add("client", this.client.toJson());
         playerObject.add("location", this.location.toJson());
+        if (this.bedSpawnLocation != null) playerObject.add("bedSpawnLocation", this.bedSpawnLocation.toJson());
+        playerObject.add("compassTargetLocation", this.compassTargetLocation.toJson());
         playerObject.add("inventory", this.inventory.toJson());
         playerObject.add("enderChest", this.enderChest.toJson());
-        playerObject.add("compassTargetLocation", this.compassTargetLocation.toJson());
-        if (this.hasBedSpawnLocation) playerObject.add("bedSpawnLocation", this.bedSpawnLocation.toJson());
         return playerObject;
     }
 }

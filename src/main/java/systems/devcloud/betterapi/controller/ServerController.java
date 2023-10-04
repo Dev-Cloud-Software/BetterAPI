@@ -7,5 +7,7 @@ package systems.devcloud.betterapi.controller;
 import io.vertx.ext.web.Router;
 
 public class ServerController implements IController {
-    public void createRoutes(Router router) {}
+    public void createRoutes(Router router) {
+        /* Implementation is in planing */
+    }
 }

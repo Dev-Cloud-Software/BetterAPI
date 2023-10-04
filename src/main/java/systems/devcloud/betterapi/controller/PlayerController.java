@@ -9,6 +9,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -39,7 +40,8 @@ public class PlayerController implements IController {
     private void getPlayer(RoutingContext routingContext) {
         HttpServerResponse response = HttpUtils.addResponseHeaders(routingContext.response(), ResponseTypes.JSON);
         String uuid = routingContext.request().getParam("uuid");
-        Player player = Bukkit.getPlayer(uuid);
+        UUID uuidObj = UUID.fromString(uuid);
+        Player player = Bukkit.getPlayer(uuidObj);
         if (player == null) {
             response.setStatusCode(404).end();
             return;

@@ -44,7 +44,7 @@ public class RestController {
 
     public void startServer(int port) {
         createRoutes();
-        log.info(String.format(localizer.get("plugin.start.api"), port)); // todo implement localisation
+        log.info(String.format(localizer.get("plugin.start.api"), port));
         HttpServer server =
                 vertx.createHttpServer(new HttpServerOptions().setPort(port)).requestHandler(router);
         server.listen();

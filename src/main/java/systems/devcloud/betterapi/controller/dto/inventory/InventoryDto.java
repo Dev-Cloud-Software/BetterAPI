@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 import lombok.Data;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import systems.devcloud.betterapi.controller.dto.item.ItemStackDto;
+import systems.devcloud.betterapi.controller.dto.inventory.item.ItemStackDto;
 
 @Data
 public class InventoryDto {
@@ -35,9 +35,11 @@ public class InventoryDto {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("size", size);
         jsonObject.addProperty("hasLocation", hasLocation);
-        JsonObject contentsObject = new JsonObject();
-        for (int i = 0; i < contents.length; i++) {
-            contentsObject.add(String.valueOf(i), contents[i].toJson());
+        if (contents != null) {
+            JsonObject contentsObject = new JsonObject();
+            for (int i = 0; i < contents.length; i++) {
+                contentsObject.add(String.valueOf(i), contents[i].toJson());
+            }
         }
         jsonObject.add("type", type.toJson());
         return jsonObject;
